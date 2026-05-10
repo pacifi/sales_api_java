@@ -19,5 +19,6 @@ public class Category {
     @Column(length = 500)
     private String description;
 
+    @Column(columnDefinition = "boolean default true")
     private Boolean isActive = true;
 }
