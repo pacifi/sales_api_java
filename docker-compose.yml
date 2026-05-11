@@ -1,9 +1,18 @@
+# Use postgres/example user/password credentials
+
 services:
+
   db:
-    image: postgres:latest
+    image: postgres
+
     environment:
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: sales_db
       POSTGRES_USER: postgres
     ports:
-      - "5432:5432"
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    ports:
+      - 8090:8080
