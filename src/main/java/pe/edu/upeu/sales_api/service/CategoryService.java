@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface CategoryService {
 
-    Page<CategoryResponseDTO> findAll(Pageable pageable);
+    Page<CategoryResponseDTO> findAll(String q, Pageable pageable);
 
     CategoryResponseDTO findById(UUID id);
 

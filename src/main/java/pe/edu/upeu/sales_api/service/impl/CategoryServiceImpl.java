@@ -23,11 +23,13 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    @Transactional(readOnly = true)
-    public Page<CategoryResponseDTO> findAll(Pageable pageable) {
-        return categoryRepository.findAll(pageable)
-                .map(categoryMapper::toResponseDTO);
-    }
+@Transactional(readOnly = true)
+public Page<CategoryResponseDTO> findAll(String q, Pageable pageable) {
+    Page<Category> page = (q != null && !q.isBlank())
+            ? categoryRepository.findByNameContainingIgnoreCase(q, pageable)
+            : categoryRepository.findAll(pageable);
+    return page.map(categoryMapper::toResponseDTO);
+}
 
     @Override
     @Transactional(readOnly = true)

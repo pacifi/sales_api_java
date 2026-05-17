@@ -20,8 +20,10 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<Page<CategoryResponseDTO>> findAll(Pageable pageable) {
-        return ResponseEntity.ok(categoryService.findAll(pageable));
+    public ResponseEntity<Page<CategoryResponseDTO>> findAll(
+            @RequestParam(required = false) String q,
+            Pageable pageable) {
+        return ResponseEntity.ok(categoryService.findAll(q, pageable));
     }
 
     @GetMapping("/{id}")
@@ -41,7 +43,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CategoryResponseDTO> update(@PathVariable UUID id,
-                                                      @Valid @RequestBody CategoryRequestDTO dto) {
+            @Valid @RequestBody CategoryRequestDTO dto) {
         return ResponseEntity.ok(categoryService.update(id, dto));
     }
 
