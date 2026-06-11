@@ -9,3 +9,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+jwt:
+  secret: unaClaveSecretaMuyLargaDeAlMenos32Caracteres123456
+  expiration: 86400000
