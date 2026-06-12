@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upeu.sales_api.dto.CategoryRequestDTO;
 import pe.edu.upeu.sales_api.dto.CategoryResponseDTO;
@@ -18,7 +19,7 @@ import java.util.UUID;
 public class CategoryController {
 
     private final CategoryService categoryService;
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     public ResponseEntity<Page<CategoryResponseDTO>> findAll(
             @RequestParam(required = false) String q,
@@ -36,6 +37,7 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.search(q));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CategoryResponseDTO> create(@Valid @RequestBody CategoryRequestDTO dto) {
         return ResponseEntity.status(201).body(categoryService.create(dto));
